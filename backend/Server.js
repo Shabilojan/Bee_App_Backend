@@ -209,8 +209,8 @@ app.post('/hive-details', (req, res) => {
 
 
 //------------------------------user updation----------------------------------------------------------------
-app.put('/user-details/:id', (req, res) => {
-    const userId = req.params.id;
+app.put('/user-details/:username', (req, res) => {
+    const username = req.params.username;
     const { name, email, phoneNumber, profilePicture } = req.body;
 
     const query = 'UPDATE users SET name = ?, email = ?, phoneNumber = ?, profilePicture = ? WHERE id = ?';
@@ -224,11 +224,11 @@ app.put('/user-details/:id', (req, res) => {
 });
 
 //------------------------------User deletation----------------------------------------------------------------
-app.delete('/user-details/:id', (req, res) => {
-    const userId = req.params.id;
-    const query = 'DELETE FROM users WHERE id = ?';
+app.delete('/user-details/:username', (req, res) => {
+    const username = req.params.username;
+    const query = 'DELETE FROM users WHERE username = ?';
 
-    db.query(query, [userId], (err, result) => {
+    db.query(query, [username], (err, result) => {
         if (err) {
             res.status(500).json({ success: false, message: 'Database error' });
             return;
@@ -238,11 +238,11 @@ app.delete('/user-details/:id', (req, res) => {
 });
 
 //------------------------------Get user by id----------------------------------------------------------------
-app.get('/user-details/:id', (req, res) => {
-    const userId = req.params.id;
-    const query = 'SELECT * FROM users WHERE id = ?';
+app.get('/user-details/:username', (req, res) => {
+    const username = req.params.username;
+    const query = 'SELECT * FROM users WHERE username = ?';
 
-    db.query(query, [userId], (err, result) => {
+    db.query(query, [username], (err, result) => {
         if (err) {
             res.status(500).json({ success: false, message: 'Database error' });
             return;
